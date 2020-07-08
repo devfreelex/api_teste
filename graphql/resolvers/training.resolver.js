@@ -4,14 +4,21 @@ const { trainingFactory } = require('../../services/training.service')
 
 const getTraining = async (parent, {filter}, ctx) => {
     const training = trainingFactory()
-    training.setModel(ctx.db.training)
+    training.setModel(ctx.db.Trainings)
     training.setFilter(filter)
     return await training.getByFilter()
 }
 
+const getTrainingsByCode = async (parent, {trainingCodes}, ctx) => {
+    const training = trainingFactory()
+    training.setModel(ctx.db.Trainings)
+    training.setFilter(trainingCodes)
+    return await training.getByCodes(trainingCodes)
+}
+
 const getTrainings = async (parent, args, ctx) => {
     const training = trainingFactory()
-    training.setModel(ctx.db.training)
+    training.setModel(ctx.db.Trainings)
     return await training.getAll()
 }
 
@@ -41,10 +48,10 @@ const addLessonTraining = async (parent, {code, data}, ctx) => {
     return await training.cteateLesson(code, data)
 }
 
-const updateLessonTraining = async (parent, {code, lessonCode, data}, ctx) => {
+const updateLessonTraining = async (parent, {lessonCode, data}, ctx) => {
     const training = trainingFactory()
     training.setModel(ctx.db.Trainings)
-    return await training.updateLesson(code, lessonCode, data)
+    return await training.updateLesson(lessonCode, data)
 }
 
 const removeLessonTraining = async (parent, {code, lessonCode, data}, ctx) => {
@@ -60,7 +67,8 @@ const removeLessonTraining = async (parent, {code, lessonCode, data}, ctx) => {
 module.exports = { 
     Queries: {
         getTraining,
-        getTrainings
+        getTrainings,
+        getTrainingsByCode
     },
     Mutations: {
         createTraining,

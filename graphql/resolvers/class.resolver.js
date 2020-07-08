@@ -15,6 +15,12 @@ const getClasses = async (parent, args, ctx) => {
     return await trainingClass.getAll()
 }
 
+const getClassesByCode = async (parent, {classesCode}, ctx) => {
+    const trainingClass = trainingClassFactory()
+    trainingClass.setModel(ctx.db.trainingClass)
+    return await trainingClass.getByCodes(classesCode)
+}
+
 
 const createClass = async (parent, {data}, ctx) => {
     const trainingClass = trainingClassFactory()
@@ -40,7 +46,8 @@ const removeClass = async (parent, {code}, ctx) => {
 module.exports = { 
     Queries: {
         getClass,
-        getClasses
+        getClasses,
+        getClassesByCode
     },
     Mutations: {
         createClass,

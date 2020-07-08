@@ -24,6 +24,12 @@ const trainingFactory = () => {
 
     }
 
+    const getByCodes = async (trainingCodes) => {
+       return await trainingModel.find({
+            code: { $in: trainingCodes }
+        })
+    }
+
     const getAll = async () => {
         return await trainingModel.find()
     }
@@ -55,6 +61,8 @@ const trainingFactory = () => {
 
     const cteateLesson = async (code, data) => {
         const now = new Date().getTime().toString()
+        data.code = uniqueID()
+        data.status = false
         
         if(data.content && data.content.length) {
             data.content.forEach( content => {
@@ -79,7 +87,7 @@ const trainingFactory = () => {
         )
     }
 
-    const updateLesson = async (code, lessonCode, data) => {
+    const updateLesson = async (lessonCode, data) => {console.log(data)
         const updateAt = new Date().getTime().toString()
 
         if (data.content && data.content.length) {
@@ -88,12 +96,13 @@ const trainingFactory = () => {
             })
         }        
 
-        return trainingModel.findOneAndUpdate(
-            { 'lessons.code': lessonCode }, 
+        const result = await trainingModel.findOneAndUpdate(
+            { "lessons.code": lessonCode }, 
             {
                 '$set': {
                     updateAt,
                     'lessons.$.code': lessonCode,
+                    'lessons.$.status': +data.status,
                     'lessons.$.duration': data.duration,
                     'lessons.$.title': data.title,
                     'lessons.$.description': data.description,
@@ -103,6 +112,8 @@ const trainingFactory = () => {
                 }
             }
         )
+        console.log(result)
+        return result
     }
 
     const removeLesson = async (code) => {
@@ -133,6 +144,7 @@ const trainingFactory = () => {
         setModel,
         setFilter,
         getByFilter,
+        getByCodes,
         getAll,
         create,
         remove,

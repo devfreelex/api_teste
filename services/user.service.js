@@ -1,4 +1,5 @@
 const { uniqueID } = require('../services/uniqueId.server')
+const { permissionFactory } = require('./permission.service')
 
 const userFactory = () => {
     let userModel = null
@@ -36,12 +37,33 @@ const userFactory = () => {
 
     }
 
+    const getUserByLogin = async ({login, password}) => {
+        return await userModel.findOne(
+            { login, password }
+        )
+    }
+
     const getAll = async () => {
         return await userModel.find()
     }
 
+    const getUserPermissions = (permissionTypes) => {
+        const permissionStore = permissionFactory()
+        const userPermissions = []
+        permissionTypes.forEach((type) => {
+            if(permissionStore.isValid(type)) {
+                const permission = permissionStore.getByType(type)
+                userPermissions.push(permission)
+            }
+        })
+        return userPermissions
+    }
+
     const create = async (data) => {
         const now = new Date().getTime().toString()
+        const userPermissions = getUserPermissions(data.permissions)
+        data.permissions = [...userPermissions]
+
         return await userModel.insert({
             code: uniqueID(),
             ...data,
@@ -57,6 +79,8 @@ const userFactory = () => {
     const update = async (code, data) => { 
         
         const updateAt = new Date().getTime().toString()
+        const userPermissions = getUserPermissions(data.permissions)
+        data.permissions = [...userPermissions]        
 
         return  await userModel.findOneAndUpdate(
             {code},
@@ -70,6 +94,7 @@ const userFactory = () => {
         setModel,
         setFilter,
         getByFilter,
+        getUserByLogin,
         getAll,
         create,
         remove,

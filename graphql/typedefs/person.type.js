@@ -71,6 +71,7 @@ input AddressInput {
 }
 
 input PersonInputFilter {
+    code:Int
     cpf: String
     rg: String  
 }

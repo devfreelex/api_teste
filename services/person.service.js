@@ -12,7 +12,7 @@ const personFactory = () => {
 
     const getByFilter = async () => {
 
-        if (!('rg' in filter) && !('cpf' in filter)) {
+        if (!('rg' in filter) && !('cpf' in filter) && !('code' in filter)) {
             throw new Error('O filtro de pessoas é inválido.')
         }
 
@@ -25,6 +25,12 @@ const personFactory = () => {
         if('cpf' in filter && filter.cpf) {
             return await personModel.findOne(
                 { "personalData.cpf": filter.cpf }
+            )
+        }
+
+        if('code' in filter && filter.code) {
+            return await personModel.findOne(
+                { "code": filter.code }
             )
         }
 

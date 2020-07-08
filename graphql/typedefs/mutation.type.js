@@ -2,7 +2,7 @@ const { gql } = require('apollo-server')
 
 module.exports = gql`
     type Mutation {
-     createCompany(newCompany: CompanyRegisterInput!): Company
+     createCompany(data: CompanyRegisterInput!): Company
      updateCompany(code:Int!, data:CompanyUpdateInput!): Company
      removeCompany(code:Int!): Company,
      createPerson(data: PersonInput!): Person!,
@@ -18,7 +18,9 @@ module.exports = gql`
      updateTraining(code:Int!, data:TrainingInput):TrainingType,
      removeTraining(code:Int!):TrainingType,
      addLessonTraining(code:Int!, data:LessonInputType):TrainingType
-     updateLessonTraining(code:Int!, lessonCode:Int!, data:LessonInputType):TrainingType
-     removeLessonTraining(code:Int!):TrainingType
+     updateLessonTraining(lessonCode:Int!, data:LessonInputType):TrainingType
+     removeLessonTraining(code:Int!):TrainingType,
+     createTicket(data:TicketInputType):TicketType,
+     updateTicket(code:Int!, data:UpdateInputType):TicketType,
     }
 `

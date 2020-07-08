@@ -3,6 +3,7 @@ const person = require('./person.resolver')
 const user = require('./user.resolver')
 const trainingClass = require('./class.resolver')
 const training = require('./training.resolver')
+const ticket = require('./ticket.resolver')
 
 module.exports = {
     Query: {
@@ -12,6 +13,7 @@ module.exports = {
         ...user.Queries,
         ...trainingClass.Queries,
         ...training.Queries,
+        ...ticket.Queries,
     }, 
     Mutation: {
         ...company.Mutations,
@@ -19,5 +21,6 @@ module.exports = {
         ...user.Mutations,
         ...trainingClass.Mutations,
         ...training.Mutations,
+        ...ticket.Mutations,
     }
 }

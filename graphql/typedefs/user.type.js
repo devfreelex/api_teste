@@ -11,7 +11,7 @@ module.exports = gql`
         permissions:[PermissionType!]!
         responsible:Int
         status:Boolean!
-        classCode:[Int!]!
+        classCode:[Int]!
         updateAt:String!
         createAt:String!
 
@@ -31,21 +31,23 @@ module.exports = gql`
         picture:String
         login:String!
         password:String!
-        permissions:[PermissionInput!]!
+        permissions:[String!]!
         responsible:Int
         status:Boolean!
     }
 
     input PermissionInput {
-        code: Int!
-        type: String!
-        label: String!
-        level: Int!            
+        type: String!          
     }
 
     input UserInputFilter {
         code: Int
         personCode: Int
         login: String
+    }
+
+    input UserLoginInputFilter {
+        login:String!
+        password:String!
     }
 `

@@ -9,6 +9,7 @@ const trainingClass = mongodb.get('trainingClasses')
 const Users = mongodb.get('users')
 // const Rules = mongodb.get('permissoes')
 const Companies = mongodb.get('companies')
+const Tickets = mongodb.get('tickets')
 
 module.exports = {
     // Pupils,
@@ -19,5 +20,6 @@ module.exports = {
     Users,
     // Rules,
     Companies,
-    trainingClass
+    trainingClass,
+    Tickets
 }

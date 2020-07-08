@@ -15,6 +15,13 @@ const getUsers = async (parent, args, ctx) => {
     return await user.getAll()
 }
 
+const getUserLogin = async (parent, {filter}, ctx) => {
+    const user = userFactory()
+    user.setModel(ctx.db.Users)
+    // user.setFilter(filter)
+    return await user.getUserByLogin(filter)
+}
+
 
 const createUser = async (parent, {data}, ctx) => {
     const user = userFactory()
@@ -40,7 +47,8 @@ const removeUser = async (parent, {code}, ctx) => {
 module.exports = { 
     Queries: {
         getUser,
-        getUsers
+        getUsers,
+        getUserLogin
     },
     Mutations: {
         createUser,

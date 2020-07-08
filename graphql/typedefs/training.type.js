@@ -16,8 +16,9 @@ module.exports = gql`
         duration:String!    
         title:String!
         description:String!
-        content:[ContentType!]!
+        content:[ContentType]!
         materials:[MaterialType]!
+        status:Int!
         createAt:String!
         updateAt:String!
     }  
@@ -28,17 +29,11 @@ module.exports = gql`
     }
 
     type ContentType {
-        code:Int!
-        paragraph:String
-        link:LinkType
-        image:String
-        video:String
-    } 
-
-    type LinkType {
+        type:String!
+        label:String!
         value:String!
-        address:String!
-    }
+        code:String!
+    } 
 
     input TrainingInput {
         title:String!
@@ -51,11 +46,13 @@ module.exports = gql`
     }  
     
     input LessonInputType {
+        code:Int
         duration:String!    
         title:String!
         description:String!
         content:[ContentInputType]
-        materials:[MaterialInputType]!       
+        materials:[MaterialInputType]!,
+        status:Int!       
     }    
 
     input MaterialInputType {
@@ -64,16 +61,11 @@ module.exports = gql`
     }
 
     input ContentInputType {
-        paragraph:String
-        link:LinkInputType
-        image:String
-        video:String
-    } 
-
-    input LinkInputType {
+        code:Int
+        type:String!
+        label:String!
         value:String!
-        address:String!
-    }
+    } 
 
     input TrainingInputFilter {
         code: Int!

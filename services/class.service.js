@@ -30,6 +30,12 @@ const trainingClassFactory = () => {
 
     }
 
+    const getByCodes = async (classesCode) => {
+        return await trainingClassModel.find({
+            code: { $in: classesCode }
+        })
+    }
+
     const getAll = async () => {
         return await trainingClassModel.find()
     }
@@ -64,6 +70,7 @@ const trainingClassFactory = () => {
         setModel,
         setFilter,
         getByFilter,
+        getByCodes,
         getAll,
         create,
         remove,

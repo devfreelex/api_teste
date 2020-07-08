@@ -13,10 +13,10 @@ const getCompanies = async (parent, { filter }, ctx) => {
     return await company.searchByFilter()
 }
 
-const createCompany = async (parent, { newCompany }, ctx) => {
+const createCompany = async (parent, { data }, ctx) => {
     const company = companyFactory()
     company.setModel(ctx.db.Companies)
-    return await company.createNew(newCompany)
+    return await company.createNew(data)
 }
 
 const removeCompany = async (parent, {code}, ctx) => {

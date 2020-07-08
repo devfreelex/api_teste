@@ -21,8 +21,8 @@ module.exports = gql`
     }
 
     input TrainingClassInputFilter {
-        code: Int!
-        tutorCode:Int!
+        code: Int
+        tutorCode:Int
     }
 
 `

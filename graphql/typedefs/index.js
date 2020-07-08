@@ -6,6 +6,7 @@ const PersonType = require('./person.type')
 const UserType = require('./user.type')
 const ClassType = require('./class.type')
 const TrainingType = require('./training.type')
+const TicketType = require('./ticket.type')
 
 module.exports = gql`
     ${QueryType}
@@ -15,4 +16,5 @@ module.exports = gql`
     ${UserType}
     ${ClassType}
     ${TrainingType}
+    ${TicketType}
 `

@@ -4,7 +4,7 @@ module.exports = gql`
     type Company {
         code: Int!
         company: String!
-        companyName:String!,
+        trade:String!,
         cnpj:String!,
         matrix: Int
     }
@@ -18,13 +18,13 @@ module.exports = gql`
 
     input CompanyUpdateInput {
         company: String
-        companyName:String,
+        trade:String,
         matrix: Int
     }
 
     input CompanyRegisterInput {
         company: String!
-        companyName:String!,
+        trade:String!,
         cnpj:String!,
         matrix: Int
     }
