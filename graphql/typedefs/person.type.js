@@ -7,7 +7,7 @@ type Person {
     personalData: PersonalData!
     createAt:String!
     updateAt:String!  
-    address: Address!  
+    addresses: [Address!]!  
     contacts: [Contact!]!     
  
 }
@@ -24,6 +24,7 @@ type Address {
 	street:String!
 	number:String!
 	zipcode:String!
+    principal:Boolean!
     note:String
 }
 
@@ -51,7 +52,7 @@ input PersonInput {
         naturalness: String! 
         nationality: String! 
         ocupation: String!  
-        address: AddressInput!
+        addresses: [AddressInput!]!
         contacts: [ContactInput!]!
 }
 
@@ -67,6 +68,7 @@ input AddressInput {
 	street:String!
 	number:String!
 	zipcode:String!
+    principal:Boolean!
     note:String    
 }
 

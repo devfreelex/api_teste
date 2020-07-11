@@ -42,9 +42,14 @@ const personFactory = () => {
 
     const create = async (data) => {
         const now = new Date().getTime().toString()
+        const {addresses, contacts} = Object.assign({}, data)
+        delete data.addresses
+        delete data.contacts
+
       return await personModel.insert({
           code: uniqueID(),
           personalData: { ...data },
+          addresses, contacts,
           createAt: now,
           updateAt: now,
       })
@@ -55,13 +60,18 @@ const personFactory = () => {
     }
 
     const update = async (code, data) => { 
-        
+        const { addresses, contacts } = Object.assign({}, data) 
+
+        delete data.addresses
+        delete data.contacts
+
         const values = {
             personalData: { ...data },
+            addresses, contacts,
             updateAt: new Date().getTime().toString()
         }
 
-        return  await personModel.findOneAndUpdate(
+        return await personModel.findOneAndUpdate(
             {code},
             { $set: { ...values } },
             {new: true},
