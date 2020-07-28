@@ -4,7 +4,7 @@ const typeDefs = require('./graphql/typedefs')
 const resolvers = require('./graphql/resolvers')
 const db = require('./database/models')
 
-const port =  5200 
+const port =  3000 
 const host = '127.0.0.2'
 const path = '/graphql'
 const app = require('express')()
@@ -35,6 +35,6 @@ app.use((req, res, next) => {
 
 server.applyMiddleware({ app });
 
-app.listen({port, host, path}, () =>
+app.listen({port, path}, () =>
     console.log(`🚀 Server ready at http://${host}:${port}${server.graphqlPath}`)
 );
