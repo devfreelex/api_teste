@@ -1,11 +1,16 @@
 require('dotenv').config()
-const { ApolloServer } = require('apollo-server')
-
+const { ApolloServer } = require('apollo-server-express')
 const typeDefs = require('./graphql/typedefs')
 const resolvers = require('./graphql/resolvers')
 const db = require('./database/models')
 
+const port =  5200 
+const host = '127.0.0.2'
+const path = '/graphql'
+const app = require('express')()
+
 const server = new ApolloServer({ 
+    cors: false,
     typeDefs, 
     resolvers,
     context: ({req}) => {
@@ -15,6 +20,21 @@ const server = new ApolloServer({
     }
 });
 
-server.listen({ port: 5200 }).then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
-});
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
+        return res.status(200).send({ ok: 'ok' })
+    }
+    next()
+})
+
+server.applyMiddleware({ app });
+
+app.listen({port, host, path}, () =>
+    console.log(`🚀 Server ready at http://${host}:${port}${server.graphqlPath}`)
+);
