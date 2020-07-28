@@ -4,7 +4,7 @@ const typeDefs = require('./graphql/typedefs')
 const resolvers = require('./graphql/resolvers')
 const db = require('./database/models')
 
-const port =  3005
+const port =  3005 
 const host = '127.0.0.2'
 const path = '/graphql'
 const app = require('express')()
